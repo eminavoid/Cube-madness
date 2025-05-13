@@ -44,7 +44,5 @@ public class PlayerMovement : MonoBehaviour, IUpdatable
         Vector3 horizontalMovement = transform.right * horizontalInput * horizontalSpeed;
 
         rb.linearVelocity += horizontalMovement;
-
-
     }
 }

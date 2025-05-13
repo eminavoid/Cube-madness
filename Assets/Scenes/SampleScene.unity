@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 48655037662097253, guid: c2a3cf1870d098c499dfa1a9eed9ebaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.521544
+      value: -17.3
       objectReference: {fileID: 0}
     - target: {fileID: 48655037662097253, guid: c2a3cf1870d098c499dfa1a9eed9ebaf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -331,7 +331,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 48655037662097253, guid: c2a3cf1870d098c499dfa1a9eed9ebaf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.521544
+      value: -17.3
       objectReference: {fileID: 0}
     - target: {fileID: 48655037662097253, guid: c2a3cf1870d098c499dfa1a9eed9ebaf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -704,7 +704,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e04caeedb2dfa3f4ba5dbc4c6eb68cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 5
+  forwardSpeed: 4
   horizontalSpeed: 5
   moveActionName: Move
 --- !u!54 &1256579507
