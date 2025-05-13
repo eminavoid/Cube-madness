@@ -464,7 +464,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2970416, y: 0, z: 0, w: 0.9548645}
-  m_LocalPosition: {x: 0, y: 7, z: -5.3}
+  m_LocalPosition: {x: 0, y: 6.67, z: -5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -681,11 +681,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forwardSpeed: 4
-  horizontalSpeed: 5
+  horizontalSpeed: 4
   moveActionName: Move
   numberOfMiniPlayers: 5
   followingDistance: 0.5
-  miniPlayerPrefab: {fileID: 0}
+  miniPlayerPrefab: {fileID: 8550742866877037123, guid: b43fdfdce251cf34cba3a8ced92e49eb, type: 3}
 --- !u!54 &1256579507
 Rigidbody:
   m_ObjectHideFlags: 0
