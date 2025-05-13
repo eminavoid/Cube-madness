@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MiniPlayer : MonoBehaviour, IUpdatable
 {
-    [SerializeField]public float followSpeed;
+    public float followSpeed = 5f;
     private Transform target;
     private MiniPlayerPool pool;
 
@@ -15,11 +15,20 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
 
     public void Tick(float deltaTime)
     {
+        if (target == null)
+        {
+            return;
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, target.position, followSpeed * deltaTime);
     }
 
     public void ReturnToPool()
     {
-        
+        gameObject.SetActive(false);
+        if (pool != null)
+        {
+            pool.ReturnObject(this);
+        }
     }
 }
