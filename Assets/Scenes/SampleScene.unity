@@ -590,10 +590,10 @@ GameObject:
   - component: {fileID: 1256579504}
   - component: {fileID: 1256579503}
   - component: {fileID: 1256579507}
-  - component: {fileID: 1256579506}
   - component: {fileID: 1256579508}
+  - component: {fileID: 1256579509}
   m_Layer: 0
-  m_Name: Player controller
+  m_Name: Dot Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -668,24 +668,6 @@ Transform:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &1256579506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1256579501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e04caeedb2dfa3f4ba5dbc4c6eb68cf2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  forwardSpeed: 4
-  horizontalSpeed: 4
-  moveActionName: Move
-  numberOfMiniPlayers: 5
-  followingDistance: 0.5
-  miniPlayerPrefab: {fileID: 8550742866877037123, guid: b43fdfdce251cf34cba3a8ced92e49eb, type: 3}
 --- !u!54 &1256579507
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -743,6 +725,26 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1256579509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256579501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 187519fb7792fe0448bb159eb74f30c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  forwardSpeed: 3
+  moveActionName: Move
+  miniPlayerPrefab: {fileID: 8550742866877037123, guid: b43fdfdce251cf34cba3a8ced92e49eb, type: 3}
+  numberOfMiniPlayers: 200
+  spreadOffset: {x: 0, y: 0, z: 0}
+  followingDistance: 0
+  followSpeedMultiplier: 1.01
 --- !u!1 &1914258749
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,24 +3,39 @@ using UnityEngine;
 public class MiniPlayer : MonoBehaviour, IUpdatable
 {
     public float followSpeed = 5f;
-    private Transform target;
+    private Vector3 targetPosition; // Changed to Vector3
     private MiniPlayerPool pool;
+    private Rigidbody rb;
 
-    public void Initialize(Transform targetTransform, MiniPlayerPool ownerPool)
+    void OnEnable()
     {
-        target = targetTransform;
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ; // Prevent rotation in Y and Z
+            rb.isKinematic = false;
+        }
+    }
+
+    public void Initialize(MiniPlayerPool ownerPool)
+    {
         pool = ownerPool;
         gameObject.SetActive(true);
     }
 
+    public void SetTarget(Vector3 target) // Changed parameter type to Vector3
+    {
+        targetPosition = target;
+    }
+
     public void Tick(float deltaTime)
     {
-        if (target == null)
-        {
-            return;
-        }
+        if (rb == null) return;
 
-        transform.position = Vector3.MoveTowards(transform.position, target.position, followSpeed * deltaTime);
+        // Move towards the target position
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        rb.linearVelocity = direction * followSpeed; // Using linearVelocity for Unity 6+
     }
 
     public void ReturnToPool()

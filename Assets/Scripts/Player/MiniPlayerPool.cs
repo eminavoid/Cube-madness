@@ -6,12 +6,14 @@ public class MiniPlayerPool
     private GameObject miniPlayerPrefab;
     private int poolSize;
     private List<MiniPlayer> availableObjects;
+    private CustomUpdateManager updateManager;
 
-    public MiniPlayerPool(GameObject prefab, int size)
+    public MiniPlayerPool(GameObject prefab, int size, CustomUpdateManager manager)
     {
         miniPlayerPrefab = prefab;
         poolSize = size;
         availableObjects = new List<MiniPlayer>(poolSize);
+        updateManager = manager;
 
         for (int i = 0; i < poolSize; i++)
         {
@@ -19,7 +21,7 @@ public class MiniPlayerPool
         }
     }
 
-    private MiniPlayer CreateNewObject()
+    private void CreateNewObject()
     {
         GameObject newObject = GameObject.Instantiate(miniPlayerPrefab);
         MiniPlayer miniPlayer = newObject.GetComponent<MiniPlayer>();
@@ -27,15 +29,20 @@ public class MiniPlayerPool
         {
             Debug.LogError("MiniPlayer prefab does not have a MiniPlayer script attached.");
         }
-        newObject.SetActive(false);
+        miniPlayer.Initialize(this);
+        // REMOVE THIS LINE: newObject.SetActive(false);
         availableObjects.Add(miniPlayer);
-        return miniPlayer;
+        if (updateManager != null)
+        {
+            updateManager.Register(miniPlayer);
+        }
     }
 
     public MiniPlayer GetObject()
     {
         if (availableObjects.Count == 0)
         {
+            // Optionally increase the pool size here if needed
             CreateNewObject();
         }
         MiniPlayer instance = availableObjects[availableObjects.Count - 1];
@@ -45,6 +52,10 @@ public class MiniPlayerPool
 
     public void ReturnObject(MiniPlayer miniPlayer)
     {
+        if (updateManager != null)
+        {
+            updateManager.Unregister(miniPlayer);
+        }
         availableObjects.Add(miniPlayer);
     }
 }
