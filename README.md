@@ -1,7 +1,7 @@
 # Cube-madness
 
 Integrantes:
-  Guidi
-  Pereyra
-  Cha
+  Guidi,
+  Pereyra,
+  Cha,
   Batnoska
