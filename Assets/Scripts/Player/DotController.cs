@@ -137,15 +137,23 @@ public class DotController : MonoBehaviour, IUpdatable
                 MiniPlayer miniPlayer = miniPlayerPool.GetObject();
                 if (miniPlayer != null)
                 {
+                    Rigidbody rb = miniPlayer.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.linearVelocity = Vector3.zero;
+                        rb.angularVelocity = Vector3.zero;
+                    }
                     miniPlayer.gameObject.SetActive(true);
                     activeMiniPlayers.Add(miniPlayer);
                     // Position the new mini player (you might want a more sophisticated way to position them)
                     // MODIFIED LINES BELOW:
-                    Vector3 spawnPosition = transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f);
-                    activeMiniPlayers[^1].transform.position = spawnPosition;
-                    activeMiniPlayers[^1].SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f));
+                    float offsetFactor = .5f;
+                    Vector3 offset = new Vector3(followingDistance * offsetFactor, spreadOffset.y * offsetFactor, spreadOffset.z * offsetFactor);
+                    Vector3 spawnPosition = transform.position + offset * activeMiniPlayers.Count;
+                    miniPlayer.transform.position = spawnPosition;
+                    miniPlayer.SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f));
                     // END OF MODIFIED LINES
-                    activeMiniPlayers[^1].followSpeed = activeMiniPlayers[^1].followSpeed * followSpeedMultiplier;
+                    miniPlayer.followSpeed = activeMiniPlayers[^1].followSpeed * followSpeedMultiplier;
                 }
             }
             Debug.Log($"Spawned players. New count: {activeMiniPlayers.Count}");
@@ -209,7 +217,7 @@ public class DotController : MonoBehaviour, IUpdatable
             }
         }
 
-        if (numberOfMiniPlayers <= 0)
+        if (activeMiniPlayers.Count <= 0)
         {
             SceneManager.LoadScene("Main Menu");
         }

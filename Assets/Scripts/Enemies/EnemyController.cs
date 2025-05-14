@@ -5,14 +5,16 @@ public class EnemyController : MonoBehaviour, IUpdatable
 {
     private Transform player;
     private float visionRange = 10f;
-    private float speed = 2f;
+    private float speed = 5f;
     private bool isChasing = false;
     private CustomUpdateManager updateManager;
+    private DotController dotController;
     
     
     public void Initialize()
     {
         player = GameObject.FindWithTag("Player").transform;
+        dotController = FindAnyObjectByType<DotController>();
         isChasing = false;
         updateManager = FindAnyObjectByType<CustomUpdateManager>();
         updateManager.Register(this);
@@ -41,7 +43,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
         if (other.gameObject.CompareTag("MiniPlayer"))
         {
             EnemyPool.Instance.ReturnEnemy(this.gameObject.GetComponent<EnemyController>());
-            other.gameObject.GetComponent<MiniPlayer>().ReturnToPool();
+            dotController.RemoveMiniPlayer(other.gameObject.GetComponent<MiniPlayer>());
         }
     }
 

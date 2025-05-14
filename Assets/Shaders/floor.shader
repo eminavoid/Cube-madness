@@ -25,7 +25,7 @@ Shader "floor"
 
 		void surf( Input i , inout SurfaceOutputStandard o )
 		{
-			float4 color2 = IsGammaSpace() ? float4(0.5980331,0.8396226,0.8338705,0) : float4(0.3162559,0.673178,0.6628368,0);
+			float4 color2 = IsGammaSpace() ? float4(0.5980331,0.8396226,0.8338705,0) : float4(0.3162559,0.673178,0.6628367,0);
 			o.Albedo = ( color2 * tex2D( _TextureSample0, ( i.uv_texcoord * float2( 10,1 ) ) ).r ).rgb;
 			o.Smoothness = -1.06;
 			o.Alpha = 1;
@@ -38,7 +38,7 @@ Shader "floor"
 }
 /*ASEBEGIN
 Version=18900
-8;433;962;251;784.4916;-79.09824;1;True;False
+0;651;1412;383;2152.111;19.81021;1.6;True;True
 Node;AmplifyShaderEditor.TextureCoordinatesNode;4;-1345.246,196.3638;Inherit;False;0;-1;2;3;2;SAMPLER2D;;False;0;FLOAT2;1,1;False;1;FLOAT2;0,0;False;5;FLOAT2;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.Vector2Node;6;-1232.988,330.1515;Inherit;False;Constant;_Vector0;Vector 0;1;0;Create;True;0;0;0;False;0;False;10,1;0,0;0;3;FLOAT2;0;FLOAT;1;FLOAT;2
 Node;AmplifyShaderEditor.SimpleMultiplyOpNode;5;-1008.414,202.6229;Inherit;False;2;2;0;FLOAT2;0,0;False;1;FLOAT2;0,0;False;1;FLOAT2;0
@@ -55,4 +55,4 @@ WireConnection;3;1;1;1
 WireConnection;0;0;3;0
 WireConnection;0;4;7;0
 ASEEND*/
-//CHKSM=28F50262426D29E252B85150C266352C9C69ED75
+//CHKSM=15F12F7D45356BF57AD06DA309F208F0C0F56133

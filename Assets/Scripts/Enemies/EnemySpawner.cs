@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        float radius = .75f; // Distancia del centro a cada enemigo
+        float radius = 1.5f; // Distancia del centro a cada enemigo
         Vector3 center = transform.position;
 
         for (int i = 0; i < enemiesToSpawn; i++)

@@ -12,6 +12,7 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
         rb = GetComponent<Rigidbody>();
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        rb.Sleep();
     }
 
     public void Initialize(MiniPlayerPool ownerPool)
@@ -36,12 +37,17 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
 
     public void ReturnToPool()
     {
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
         DotController dotController = FindAnyObjectByType<DotController>();
         gameObject.SetActive(false);
         if (pool != null)
         {
             pool.ReturnObject(this);
-            dotController.numberOfMiniPlayers--;
+            if (dotController != null)
+            {
+                dotController.numberOfMiniPlayers--;
+            }
         }
     }
 }
