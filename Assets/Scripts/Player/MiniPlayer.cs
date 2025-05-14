@@ -40,10 +40,12 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
 
     public void ReturnToPool()
     {
+        DotController dotController = FindAnyObjectByType<DotController>();
         gameObject.SetActive(false);
         if (pool != null)
         {
             pool.ReturnObject(this);
+            dotController.numberOfMiniPlayers--;
         }
     }
 }

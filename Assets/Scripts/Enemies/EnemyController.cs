@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IUpdatable
@@ -35,8 +36,20 @@ public class EnemyController : MonoBehaviour, IUpdatable
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("MiniPlayer"))
+        {
+            EnemyPool.Instance.ReturnEnemy(this.gameObject.GetComponent<EnemyController>());
+            other.gameObject.GetComponent<MiniPlayer>().ReturnToPool();
+        }
+    }
+
     private void OnDisable()
     {
-        updateManager.Unregister(this);
+        if (updateManager != null)
+        {
+            updateManager.Unregister(this);
+        }
     }
 }

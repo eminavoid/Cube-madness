@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DotController : MonoBehaviour, IUpdatable
 {
@@ -195,6 +196,11 @@ public class DotController : MonoBehaviour, IUpdatable
                 Vector3 targetPosition = transform.position + new Vector3(followingDistance * (i + 1) + spreadOffset.x * (i + 1), spreadOffset.y * (i + 1), spreadOffset.z * (i + 1));
                 activeMiniPlayers[i].SetTarget(targetPosition);
             }
+        }
+
+        if (numberOfMiniPlayers <= 0)
+        {
+            SceneManager.LoadScene("Main Menu");
         }
     }
 }

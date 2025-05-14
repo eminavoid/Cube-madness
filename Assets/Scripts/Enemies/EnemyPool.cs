@@ -36,9 +36,12 @@ public class EnemyPool : MonoBehaviour
         return enemy;
     }
 
-    public void ReturnEnemy(GameObject enemy)
+    public void ReturnEnemy(EnemyController enemy)
     {
-        enemy.SetActive(false);
-        pool.Enqueue(enemy);
+        if (pool != null)
+        {
+            enemy.gameObject.SetActive(false);
+            pool.Enqueue(enemy.gameObject);
+        }
     }
 }
