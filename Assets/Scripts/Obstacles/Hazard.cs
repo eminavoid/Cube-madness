@@ -15,6 +15,8 @@ public class Hazard : MonoBehaviour
                 DotController dotController = FindAnyObjectByType<DotController>();
                 if (dotController != null)
                 {
+                    Debug.Log($"Hazard hit. Removing miniplayer. Current count: {dotController.activeMiniPlayers.Count}");
+
                     dotController.RemoveMiniPlayer(miniPlayer);
                 }
                 else

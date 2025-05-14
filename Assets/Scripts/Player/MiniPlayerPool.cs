@@ -7,6 +7,7 @@ public class MiniPlayerPool
     private int poolSize;
     private List<MiniPlayer> availableObjects;
     private CustomUpdateManager updateManager;
+    private Transform miniPlayersFolder;
 
     public MiniPlayerPool(GameObject prefab, int size, CustomUpdateManager manager)
     {
@@ -14,16 +15,26 @@ public class MiniPlayerPool
         poolSize = size;
         availableObjects = new List<MiniPlayer>(poolSize);
         updateManager = manager;
-
+        CreateMiniPlayersFolder();
         for (int i = 0; i < poolSize; i++)
         {
             CreateNewObject();
         }
     }
 
+    private void CreateMiniPlayersFolder()
+    {
+        GameObject folder = GameObject.Find("MiniPlayersFolder");
+        if (folder == null)
+        {
+            folder = new GameObject("MiniPlayersFolder");
+        }
+        miniPlayersFolder = folder.transform;
+    }
+
     private void CreateNewObject()
     {
-        GameObject newObject = GameObject.Instantiate(miniPlayerPrefab);
+        GameObject newObject = GameObject.Instantiate(miniPlayerPrefab, miniPlayersFolder);
         MiniPlayer miniPlayer = newObject.GetComponent<MiniPlayer>();
         if (miniPlayer == null)
         {

@@ -17,7 +17,7 @@ public class DotController : MonoBehaviour, IUpdatable
     private CustomUpdateManager updateManager;
     private InputAction moveAction;
     private MiniPlayerPool miniPlayerPool;
-    private List<MiniPlayer> activeMiniPlayers = new List<MiniPlayer>();
+    public List<MiniPlayer> activeMiniPlayers = new List<MiniPlayer>();
 
     void OnEnable()
     {
@@ -114,13 +114,18 @@ public class DotController : MonoBehaviour, IUpdatable
         if (activeMiniPlayers.Contains(miniPlayerToRemove))
         {
             activeMiniPlayers.Remove(miniPlayerToRemove);
+            Debug.Log($"Removing miniplayer. Remaining count: {activeMiniPlayers.Count}");
+
             miniPlayerToRemove.ReturnToPool();
+            numberOfMiniPlayers--;
             UpdateMiniPlayerTargets();
         }
     }
     public void AdjustMiniPlayerCount()
     {
         int difference = numberOfMiniPlayers - activeMiniPlayers.Count;
+        Debug.Log($"AdjustMiniPlayerCount called. Target count: {numberOfMiniPlayers}, Active count: {activeMiniPlayers.Count}, Difference: {difference}");
+
         Debug.Log(difference);
 
         if (difference > 0)
@@ -131,14 +136,19 @@ public class DotController : MonoBehaviour, IUpdatable
                 MiniPlayer miniPlayer = miniPlayerPool.GetObject();
                 if (miniPlayer != null)
                 {
+                    miniPlayer.gameObject.SetActive(true);
                     activeMiniPlayers.Add(miniPlayer);
                     // Position the new mini player (you might want a more sophisticated way to position them)
-                    Vector3 spawnPosition = transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count), spreadOffset.y * (activeMiniPlayers.Count), spreadOffset.z * (activeMiniPlayers.Count));
+                    // MODIFIED LINES BELOW:
+                    Vector3 spawnPosition = transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f);
                     activeMiniPlayers[^1].transform.position = spawnPosition;
-                    activeMiniPlayers[^1].SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count), spreadOffset.y * (activeMiniPlayers.Count), spreadOffset.z * (activeMiniPlayers.Count)));
+                    activeMiniPlayers[^1].SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f));
+                    // END OF MODIFIED LINES
                     activeMiniPlayers[^1].followSpeed = activeMiniPlayers[^1].followSpeed * followSpeedMultiplier;
                 }
             }
+            Debug.Log($"Spawned players. New count: {activeMiniPlayers.Count}");
+
         }
         else if (difference < 0)
         {
@@ -155,6 +165,7 @@ public class DotController : MonoBehaviour, IUpdatable
                     activeMiniPlayers.RemoveAt(lastIndex);
                 }
             }
+            Debug.Log($"Despawned players. New count: {activeMiniPlayers.Count}");
         }
         // Optionally update targets for all remaining mini players
         UpdateMiniPlayerTargets();
