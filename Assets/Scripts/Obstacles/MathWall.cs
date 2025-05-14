@@ -1,3 +1,5 @@
+using System;
+using TMPro;
 using UnityEngine;
 
 public enum MathOperation
@@ -14,6 +16,43 @@ public class MathWall : MonoBehaviour
     public int operationValue = 1;
     public string dotTag = "Player"; // Assign this tag to your "Dot" GameObject
 
+    public TMP_Text operatorTextDisplay;
+    public TMP_Text valueTextDisplay;
+
+    private void OnEnable()
+    {
+        UpdateTextDisplay();    
+    }
+
+    private void UpdateTextDisplay()
+    {
+        if (operatorTextDisplay != null) 
+        {
+            switch (operationType) 
+            { 
+                case MathOperation.Add:
+                    operatorTextDisplay.text = "+";
+                    break;
+                case MathOperation.Subtract:
+                    operatorTextDisplay.text = "-";
+                    break;
+                case MathOperation.Multiply:
+                    operatorTextDisplay.text = "x";
+                    break;
+                case MathOperation.Divide:
+                    operatorTextDisplay.text = "/";
+                    break;
+                default:
+                    operatorTextDisplay.text = "?";
+                    break;
+            }
+        }
+        if (valueTextDisplay != null)
+        {
+            valueTextDisplay.text = operationValue.ToString();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(dotTag))
@@ -21,6 +60,8 @@ public class MathWall : MonoBehaviour
             DotController dotController = other.GetComponent<DotController>();
             if (dotController != null)
             {
+                Debug.Log($"Math Wall hit. Operation: {operationType}, Value: {operationValue}. Current count before op: {dotController.numberOfMiniPlayers}");
+
                 int currentMiniPlayers = dotController.numberOfMiniPlayers;
                 int newMiniPlayers = currentMiniPlayers;
 
@@ -58,6 +99,8 @@ public class MathWall : MonoBehaviour
                 {
                     dotController.numberOfMiniPlayers = newMiniPlayers;
                     dotController.AdjustMiniPlayerCount(); // We'll add this method to DotController
+                    Debug.Log($"Math Wall hit. New count after op: {dotController.numberOfMiniPlayers}");
+
                 }
 
                 //Get the pearent MathPanel and deactivate both walls

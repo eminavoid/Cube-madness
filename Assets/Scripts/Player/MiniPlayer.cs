@@ -10,12 +10,8 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
     void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
-        {
-            rb = gameObject.AddComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ; // Prevent rotation in Y and Z
-            rb.isKinematic = false;
-        }
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     public void Initialize(MiniPlayerPool ownerPool)
