@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player
-  m_Shader: {fileID: 4800000, guid: 2a4b3ae5fa112ae469497ace4f566db4, type: 3}
+  m_Name: transparent_wall
+  m_Shader: {fileID: 4800000, guid: d08626417073d43489e1e798ca39763b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -26,9 +26,6 @@ Material:
     m_Ints: []
     m_Floats:
     - __dirty: 0
-    - _power: 0.94
-    - _smoothness: 1.28
-    m_Colors:
-    - _Color0: {r: 0, g: 0.7954216, b: 1, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

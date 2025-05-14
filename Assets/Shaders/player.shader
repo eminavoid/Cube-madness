@@ -116,7 +116,7 @@ Shader "player"
 }
 /*ASEBEGIN
 Version=18900
-8;441;962;243;2929.132;300.7805;3.48791;True;False
+8;441;962;243;2879.292;383.1866;2.959101;True;False
 Node;AmplifyShaderEditor.RangedFloatNode;7;-1451.97,265.8473;Inherit;False;Property;_power;power;2;0;Create;True;0;0;0;False;0;False;0.6;0.94;0;0;0;1;FLOAT;0
 Node;AmplifyShaderEditor.FresnelNode;3;-1284.37,120.9201;Inherit;False;Standard;WorldNormal;ViewDir;False;False;5;0;FLOAT3;0,0,1;False;4;FLOAT3;0,0,0;False;1;FLOAT;0;False;2;FLOAT;1;False;3;FLOAT;5;False;1;FLOAT;0
 Node;AmplifyShaderEditor.ColorNode;5;-1239.654,-67.13301;Inherit;False;Constant;_Color1;Color 1;1;0;Create;True;0;0;0;False;0;False;1,1,1,0;0,0,0,0;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
@@ -133,4 +133,4 @@ WireConnection;6;1;4;0
 WireConnection;0;0;6;0
 WireConnection;0;4;2;0
 ASEEND*/
-//CHKSM=9A2D4DA8D90077500C3052C6CAF993A722F32B34
+//CHKSM=01A269BDB9765DE89A7A0965A371D7AD2FFDFD51

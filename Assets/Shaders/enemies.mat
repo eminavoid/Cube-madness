@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: player
-  m_Shader: {fileID: 4800000, guid: 2a4b3ae5fa112ae469497ace4f566db4, type: 3}
+  m_Name: enemies
+  m_Shader: {fileID: 4800000, guid: 28e8cc6b3ba206e43a15d708bffca788, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -26,9 +26,12 @@ Material:
     m_Ints: []
     m_Floats:
     - __dirty: 0
-    - _power: 0.94
-    - _smoothness: 1.28
+    - _power: 2.3
+    - _power1: 0.6
+    - _smoothness: 1.3
+    - _smoothness1: 0
     m_Colors:
-    - _Color0: {r: 0, g: 0.7954216, b: 1, a: 0}
+    - _Color0: {r: 1, g: 0.09067253, b: 0, a: 0}
+    - _Color1: {r: 1, g: 0.09067253, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
