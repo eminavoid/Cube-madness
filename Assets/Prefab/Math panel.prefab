@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4524439510931361668}
   - component: {fileID: 7376627641802480296}
   - component: {fileID: 4259373649118404428}
+  - component: {fileID: 3700531733237060667}
   m_Layer: 0
   m_Name: Math panel
   m_TagString: Untagged
@@ -108,3 +109,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3700531733237060667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101492986860393317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa66155120cbc94c8504f5581b0743e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  operationType: 0
+  operationValue: 1
+  dotTag: Player

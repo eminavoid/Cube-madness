@@ -109,7 +109,59 @@ public class DotController : MonoBehaviour, IUpdatable
         }
         activeMiniPlayers.Clear();
     }
+    public void AdjustMiniPlayerCount()
+    {
+        int difference = numberOfMiniPlayers - activeMiniPlayers.Count;
+        Debug.Log(difference);
 
+        if (difference > 0)
+        {
+            // Spawn new mini players
+            for (int i = 0; i < difference; i++)
+            {
+                MiniPlayer miniPlayer = miniPlayerPool.GetObject();
+                if (miniPlayer != null)
+                {
+                    activeMiniPlayers.Add(miniPlayer);
+                    // Position the new mini player (you might want a more sophisticated way to position them)
+                    Vector3 spawnPosition = transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count), spreadOffset.y * (activeMiniPlayers.Count), spreadOffset.z * (activeMiniPlayers.Count));
+                    activeMiniPlayers[^1].transform.position = spawnPosition;
+                    activeMiniPlayers[^1].SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count), spreadOffset.y * (activeMiniPlayers.Count), spreadOffset.z * (activeMiniPlayers.Count)));
+                    activeMiniPlayers[^1].followSpeed = activeMiniPlayers[^1].followSpeed * followSpeedMultiplier;
+                }
+            }
+        }
+        else if (difference < 0)
+        {
+            // Despawn extra mini players
+            for (int i = 0; i < Mathf.Abs(difference); i++)
+            {
+                if (activeMiniPlayers.Count > 0)
+                {
+                    int lastIndex = activeMiniPlayers.Count - 1;
+                    if (activeMiniPlayers[lastIndex] != null)
+                    {
+                        activeMiniPlayers[lastIndex].ReturnToPool();
+                    }
+                    activeMiniPlayers.RemoveAt(lastIndex);
+                }
+            }
+        }
+        // Optionally update targets for all remaining mini players
+        UpdateMiniPlayerTargets();
+    }
+
+    private void UpdateMiniPlayerTargets()
+    {
+        for (int i = 0; i < activeMiniPlayers.Count; i++)
+        {
+            if (activeMiniPlayers[i] != null)
+            {
+                Vector3 targetPosition = transform.position + new Vector3(followingDistance * (i + 1) + spreadOffset.x * (i + 1), spreadOffset.y * (i + 1), spreadOffset.z * (i + 1));
+                activeMiniPlayers[i].SetTarget(targetPosition);
+            }
+        }
+    }
     public void Tick(float deltaTime)
     {
         if (rb == null || moveAction == null) return;
