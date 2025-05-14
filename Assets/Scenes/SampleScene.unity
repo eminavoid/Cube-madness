@@ -626,7 +626,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cedc167a8cb04b54cb6e3c9c45a610da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -835,7 +835,7 @@ MonoBehaviour:
   forwardSpeed: 3
   moveActionName: Move
   miniPlayerPrefab: {fileID: 8550742866877037123, guid: b43fdfdce251cf34cba3a8ced92e49eb, type: 3}
-  numberOfMiniPlayers: 1
+  numberOfMiniPlayers: 4
   spreadOffset: {x: 0, y: 0, z: 0.01}
   followingDistance: 0.03
   followSpeedMultiplier: 1.2
@@ -991,6 +991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3903040480005109010, guid: ffc51b3e237904c44998685b0f54d1bb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cedc167a8cb04b54cb6e3c9c45a610da, type: 2}
     - target: {fileID: 4236458320221544409, guid: ffc51b3e237904c44998685b0f54d1bb, type: 3}
       propertyPath: m_Name
       value: MathPanelPearent
@@ -1045,7 +1049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8427606074462493930, guid: ffc51b3e237904c44998685b0f54d1bb, type: 3}
       propertyPath: operationValue
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
