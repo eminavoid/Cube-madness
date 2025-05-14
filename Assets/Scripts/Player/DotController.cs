@@ -109,6 +109,15 @@ public class DotController : MonoBehaviour, IUpdatable
         }
         activeMiniPlayers.Clear();
     }
+    public void RemoveMiniPlayer(MiniPlayer miniPlayerToRemove)
+    {
+        if (activeMiniPlayers.Contains(miniPlayerToRemove))
+        {
+            activeMiniPlayers.Remove(miniPlayerToRemove);
+            miniPlayerToRemove.ReturnToPool();
+            UpdateMiniPlayerTargets();
+        }
+    }
     public void AdjustMiniPlayerCount()
     {
         int difference = numberOfMiniPlayers - activeMiniPlayers.Count;

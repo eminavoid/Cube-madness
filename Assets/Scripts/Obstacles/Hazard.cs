@@ -1,0 +1,27 @@
+using UnityEngine;
+
+public class Hazard : MonoBehaviour
+{
+    public string miniPlayerTag = "MiniPlayer"; // Assign this tag to your MiniPlayer prefab
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(miniPlayerTag))
+        {
+            MiniPlayer miniPlayer = other.GetComponent<MiniPlayer>();
+            if (miniPlayer != null)
+            {
+                // Find the DotController in the scene
+                DotController dotController = FindAnyObjectByType<DotController>();
+                if (dotController != null)
+                {
+                    dotController.RemoveMiniPlayer(miniPlayer);
+                }
+                else
+                {
+                    Debug.LogError("DotController not found in the scene.");
+                }
+            }
+        }
+    }
+}
