@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6805490275268208902}
   - component: {fileID: -5773293687674275634}
   - component: {fileID: 1010033614938839282}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MiniPlayerPrefab
   m_TagString: MiniPlayer
   m_Icon: {fileID: 0}

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
@@ -110,6 +111,15 @@ public class DotController : MonoBehaviour, IUpdatable
         }
         activeMiniPlayers.Clear();
     }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Win"))
+        {
+            SceneManager.LoadScene("Main Menu");
+        }
+    }
+
     public void RemoveMiniPlayer(MiniPlayer miniPlayerToRemove)
     {
         if (activeMiniPlayers.Contains(miniPlayerToRemove))

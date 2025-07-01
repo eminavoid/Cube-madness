@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Win
   - Water
   - UI
   - Enemies
-  - 
-  - 
-  - 
+  - MathWalls
+  - MiniPlayers
+  - Spawners
   - 
   - 
   - 

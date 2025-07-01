@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3207479290474608864}
   - component: {fileID: 8967149187178045763}
   - component: {fileID: 5409016134865412158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ GameObject:
   - component: {fileID: 5262990242228094417}
   - component: {fileID: 2170581846021320505}
   - component: {fileID: 6206255544582520657}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OperatorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 7376627641802480296}
   - component: {fileID: 4259373649118404428}
   - component: {fileID: 3700531733237060667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Math panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
