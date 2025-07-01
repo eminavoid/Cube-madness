@@ -1,6 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Hazard : MonoBehaviour
+public class Lava : MonoBehaviour
 {
     public string miniPlayerTag = "MiniPlayer"; // Assign this tag to your MiniPlayer prefab
 

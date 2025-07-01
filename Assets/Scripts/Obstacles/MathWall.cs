@@ -102,13 +102,19 @@ public class MathWall : MonoBehaviour
                     Debug.Log($"Math Wall hit. New count after op: {dotController.numberOfMiniPlayers}");
 
                 }
-
                 //Get the pearent MathPanel and deactivate both walls
-                MathWallPearent pearentWall = GetComponentInParent<MathWallPearent>();
-                if( pearentWall != null)
+                //MathWallPearent pearentWall = GetComponentInParent<MathWallPearent>();
+                //if( pearentWall != null)
+                //{
+                //    pearentWall.DeactivateWalls();
+                //}
+
+                
+                foreach (Transform child in this.transform.parent)
                 {
-                    pearentWall.DeactivateWalls();
+                    child.gameObject.SetActive(false);
                 }
+                
 
                 // Optionally destroy the math wall after it's been touched
                 // Destroy(gameObject);
