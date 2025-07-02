@@ -1,13 +1,21 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private CanvasGroup loadingScreen;
+    [SerializeField] private CanvasGroup ui1;
+    [SerializeField] private CanvasGroup ui2;
+
+    [SerializeField] private Slider loadingSlider;
+    
     public void BackToMenu()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Guardamos el índice de la escena actual
+        // Guardamos el ï¿½ndice de la escena actual
         PlayerPrefs.SetInt("SavedLevel", currentSceneIndex);
         PlayerPrefs.Save();
 
@@ -22,11 +30,30 @@ public class UIManager : MonoBehaviour
         // Verificamos que exista una siguiente escena
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(nextIndex);
+            if (ui1 != null)
+            {
+                ui1.alpha = 0f;
+                ui1.interactable = false;
+                ui1.blocksRaycasts = false;
+            }
+
+            if (ui2 != null)
+            {
+                ui2.alpha = 0f;
+                ui2.interactable = false;
+                ui2.blocksRaycasts = false;
+            }
+            
+            loadingScreen.alpha = 1f;
+            loadingScreen.interactable = false;
+            loadingScreen.blocksRaycasts = true;
+
+            StartCoroutine(LoadLevelAsync(nextIndex));
+            // SceneManager.LoadScene(nextIndex);
         }
         else
         {
-            Debug.LogWarning("No hay más escenas en el build index.");
+            Debug.LogWarning("No hay mï¿½s escenas en el build index.");
         }
     }
 
@@ -35,7 +62,28 @@ public class UIManager : MonoBehaviour
         if (PlayerPrefs.HasKey("SavedLevel"))
         {
             int levelIndex = PlayerPrefs.GetInt("SavedLevel");
-            SceneManager.LoadScene(levelIndex);
+            
+            if (ui1 != null)
+            {
+                ui1.alpha = 0f;
+                ui1.interactable = false;
+                ui1.blocksRaycasts = false;
+            }
+
+            if (ui2 != null)
+            {
+                ui2.alpha = 0f;
+                ui2.interactable = false;
+                ui2.blocksRaycasts = false;
+            }
+            
+            loadingScreen.alpha = 1f;
+            loadingScreen.interactable = false;
+            loadingScreen.blocksRaycasts = true;
+
+            StartCoroutine(LoadLevelAsync(levelIndex));
+            
+            // SceneManager.LoadScene(levelIndex);
         }
         else
         {
@@ -46,5 +94,17 @@ public class UIManager : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    IEnumerator LoadLevelAsync(int levelToLoad)
+    {
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
+
+        while (!loadOperation.isDone)
+        {
+            float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
+            loadingSlider.value = progressValue;
+            yield return null;
+        }
     }
 }

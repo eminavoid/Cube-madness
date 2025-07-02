@@ -25,6 +25,8 @@ public class DotController : MonoBehaviour, IUpdatable
     public CanvasGroup canvas;
     public float delay = 3f;
 
+    private UIManager ui;
+
     void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,6 +38,7 @@ public class DotController : MonoBehaviour, IUpdatable
         }
 
         updateManager = FindAnyObjectByType<CustomUpdateManager>();
+        ui = FindAnyObjectByType<UIManager>();
         if (updateManager != null)
         {
             updateManager.Register(this);
@@ -130,7 +133,7 @@ public class DotController : MonoBehaviour, IUpdatable
             // Verificamos que exista una siguiente escena
             if (nextIndex < SceneManager.sceneCountInBuildSettings)
             {
-                SceneManager.LoadScene(nextIndex);
+                ui.Play();
             }
             else
             {
