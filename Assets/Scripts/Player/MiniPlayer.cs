@@ -1,11 +1,12 @@
 using UnityEngine;
 
-public class MiniPlayer : MonoBehaviour, IUpdatable
+public class MiniPlayer : MonoBehaviour, IUpdatable, IHazardHandler
 {
     public float followSpeed = 5f;
-    private Vector3 targetPosition; // Changed to Vector3
+    private Vector3 targetPosition;
     private MiniPlayerPool pool;
     private Rigidbody rb;
+    DotController dot;
 
     void OnEnable()
     {
@@ -13,6 +14,8 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.Sleep();
+        rb = GetComponent<Rigidbody>();
+        dot = FindAnyObjectByType<DotController>();
     }
 
     public void Initialize(MiniPlayerPool ownerPool)
@@ -21,7 +24,7 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
         gameObject.SetActive(true);
     }
 
-    public void SetTarget(Vector3 target) // Changed parameter type to Vector3
+    public void SetTarget(Vector3 target)
     {
         targetPosition = target;
     }
@@ -30,24 +33,56 @@ public class MiniPlayer : MonoBehaviour, IUpdatable
     {
         if (rb == null) return;
 
-        // Move towards the target position
         Vector3 direction = (targetPosition - transform.position).normalized;
-        rb.linearVelocity = direction * followSpeed; // Using linearVelocity for Unity 6+
+        rb.linearVelocity = direction * followSpeed;
+    }
+
+    public void HandleHazard(BaseHazard hazard)
+    {
+        switch (hazard)
+        {
+            case Lava lava:
+                if (dot != null)
+                {
+                    dot.RemoveMiniPlayer(this);
+                }
+                break;
+
+            case MathWall mathWall:
+                if (!mathWall.enabled || mathWall.gameObject == null || mathWall.gameObject.activeSelf == false)
+                    break;
+
+                if (!mathWall.HasActivated)
+                {
+                    mathWall.HasActivated = true;
+
+                    if (dot != null)
+                    {
+                        dot.ApplyMathOperation(mathWall.operationType, mathWall.operationValue);
+                    }
+
+                    Transform wallParent = mathWall.transform.parent;
+                    if (wallParent != null)
+                    {
+                        foreach (Transform child in wallParent)
+                        {
+                            child.gameObject.SetActive(false);
+                        }
+                    }
+                }
+                break;
+
+            default:
+                Debug.LogWarning("Unhandled hazard type");
+                break;
+        }
     }
 
     public void ReturnToPool()
     {
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        DotController dotController = FindAnyObjectByType<DotController>();
         gameObject.SetActive(false);
-        if (pool != null)
-        {
-            pool.ReturnObject(this);
-            if (dotController != null)
-            {
-                dotController.numberOfMiniPlayers--;
-            }
-        }
+        pool?.ReturnObject(this);
     }
 }

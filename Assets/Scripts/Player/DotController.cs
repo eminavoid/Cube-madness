@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 public class DotController : MonoBehaviour, IUpdatable
 {
     public float moveSpeed = 5f;
-    public float forwardSpeed = 3f; // Speed to move forward in -X
-    public string moveActionName = "Move"; // Name of the input action for horizontal movement (now in Z-axis)
+    public float forwardSpeed = 3f; 
+    public string moveActionName = "Move";
     public GameObject miniPlayerPrefab;
     public int numberOfMiniPlayers = 5;
-    public Vector3 spreadOffset = new Vector3(-1f, 0f, 0f); // Offset between each mini-player (local offset from the target)
-    public float followingDistance = 1f; // Base distance behind the dot
-    public float followSpeedMultiplier = 1f; // Adjust how quickly mini-players follow
+    public Vector3 spreadOffset = new Vector3(-1f, 0f, 0f);
+    public float followingDistance = 1f; 
+    public float followSpeedMultiplier = 1f;
 
     private Rigidbody rb;
     private CustomUpdateManager updateManager;
@@ -70,7 +70,6 @@ public class DotController : MonoBehaviour, IUpdatable
 
         miniPlayerPool = new MiniPlayerPool(miniPlayerPrefab, numberOfMiniPlayers, updateManager);
 
-        // Spawn initial mini players
         for (int i = 0; i < numberOfMiniPlayers; i++)
         {
             MiniPlayer miniPlayer = miniPlayerPool.GetObject();
@@ -80,7 +79,6 @@ public class DotController : MonoBehaviour, IUpdatable
             }
         }
 
-        // Initial positioning behind the dot (in positive X)
         for (int i = 0; i < activeMiniPlayers.Count; i++)
         {
             float offset = followingDistance * (i + 1);
@@ -100,7 +98,6 @@ public class DotController : MonoBehaviour, IUpdatable
         {
             moveAction.Disable();
         }
-        // Return all active mini players to the pool when the dot is disabled
         foreach (var miniPlayer in activeMiniPlayers)
         {
             if (miniPlayer != null)
@@ -145,14 +142,11 @@ public class DotController : MonoBehaviour, IUpdatable
                     }
                     miniPlayer.gameObject.SetActive(true);
                     activeMiniPlayers.Add(miniPlayer);
-                    // Position the new mini player (you might want a more sophisticated way to position them)
-                    // MODIFIED LINES BELOW:
                     float offsetFactor = .5f;
                     Vector3 offset = new Vector3(followingDistance * offsetFactor, spreadOffset.y * offsetFactor, spreadOffset.z * offsetFactor);
                     Vector3 spawnPosition = transform.position + offset * activeMiniPlayers.Count;
                     miniPlayer.transform.position = spawnPosition;
                     miniPlayer.SetTarget(transform.position + new Vector3(followingDistance * (activeMiniPlayers.Count) * 0.5f, spreadOffset.y * (activeMiniPlayers.Count) * 0.5f, spreadOffset.z * (activeMiniPlayers.Count) * 0.5f));
-                    // END OF MODIFIED LINES
                     miniPlayer.followSpeed = activeMiniPlayers[^1].followSpeed * followSpeedMultiplier;
                 }
             }
@@ -161,7 +155,6 @@ public class DotController : MonoBehaviour, IUpdatable
         }
         else if (difference < 0)
         {
-            // Despawn extra mini players
             for (int i = 0; i < Mathf.Abs(difference); i++)
             {
                 if (activeMiniPlayers.Count > 0)
@@ -176,7 +169,6 @@ public class DotController : MonoBehaviour, IUpdatable
             }
             Debug.Log($"Despawned players. New count: {activeMiniPlayers.Count}");
         }
-        // Optionally update targets for all remaining mini players
         UpdateMiniPlayerTargets();
     }
 
@@ -195,19 +187,14 @@ public class DotController : MonoBehaviour, IUpdatable
     {
         if (rb == null || moveAction == null) return;
 
-        // Get horizontal input value for Z-axis movement (-1 to 1)
         float horizontalInput = moveAction.ReadValue<Vector2>().x;
 
-        // Calculate movement in the z-axis
         Vector3 zMovement = new Vector3(0f, 0f, horizontalInput) * moveSpeed;
 
-        // Always move forward in the negative X direction
         Vector3 forwardMovement = Vector3.left * forwardSpeed;
 
-        // Apply both movements to the dot's Rigidbody
         rb.linearVelocity = forwardMovement + zMovement; // Using linearVelocity
 
-        // Update mini-player targets to be behind the dot
         for (int i = 0; i < activeMiniPlayers.Count; i++)
         {
             if (activeMiniPlayers[i] != null)
@@ -221,5 +208,21 @@ public class DotController : MonoBehaviour, IUpdatable
         {
             SceneManager.LoadScene("Main Menu");
         }
+    }
+    public void ApplyMathOperation(MathOperation operation, int value)
+    {
+        switch (operation)
+        {
+            case MathOperation.Add: numberOfMiniPlayers += value; break;
+            case MathOperation.Subtract: numberOfMiniPlayers -= value; break;
+            case MathOperation.Multiply: numberOfMiniPlayers *= value; break;
+            case MathOperation.Divide:
+                if (value != 0) numberOfMiniPlayers /= value;
+                else Debug.LogWarning("Division by zero in MathWall");
+                break;
+        }
+
+        numberOfMiniPlayers = Mathf.Max(0, numberOfMiniPlayers);
+        AdjustMiniPlayerCount();
     }
 }
