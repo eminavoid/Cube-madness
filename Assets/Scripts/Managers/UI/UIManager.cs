@@ -1,6 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
@@ -8,82 +12,44 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CanvasGroup loadingScreen;
     [SerializeField] private CanvasGroup ui1;
     [SerializeField] private CanvasGroup ui2;
-
     [SerializeField] private Slider loadingSlider;
+
+    [SerializeField] private List<string> sceneAddresses;
     
     public void BackToMenu()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // Guardamos el �ndice de la escena actual
-        PlayerPrefs.SetInt("SavedLevel", currentSceneIndex);
+        string currentScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("SavedLevelAddress", currentScene);
         PlayerPrefs.Save();
-
-        SceneManager.LoadScene("Main Menu");
+        ShowLoadingScreen();
+        StartCoroutine(LoadAddressableSceneAsync("Main Menu"));
     }
 
     public void Play()
     {
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-        int nextIndex = currentIndex + 1;
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        int currentIndex = sceneAddresses.IndexOf(currentSceneName);
 
-        // Verificamos que exista una siguiente escena
-        if (nextIndex < SceneManager.sceneCountInBuildSettings)
+        if (currentIndex >= 0 && currentIndex + 1 < sceneAddresses.Count)
         {
-            if (ui1 != null)
-            {
-                ui1.alpha = 0f;
-                ui1.interactable = false;
-                ui1.blocksRaycasts = false;
-            }
-
-            if (ui2 != null)
-            {
-                ui2.alpha = 0f;
-                ui2.interactable = false;
-                ui2.blocksRaycasts = false;
-            }
-            
-            loadingScreen.alpha = 1f;
-            loadingScreen.interactable = false;
-            loadingScreen.blocksRaycasts = true;
-
-            StartCoroutine(LoadLevelAsync(nextIndex));
-            // SceneManager.LoadScene(nextIndex);
+            string nextScene = sceneAddresses[currentIndex + 1];
+            Debug.Log(nextScene);
+            ShowLoadingScreen();
+            StartCoroutine(LoadAddressableSceneAsync(nextScene));
         }
         else
         {
-            Debug.LogWarning("No hay m�s escenas en el build index.");
+            BackToMenu();
         }
     }
 
     public void Continue()
     {
-        if (PlayerPrefs.HasKey("SavedLevel"))
+        if (PlayerPrefs.HasKey("SavedLevelAddress"))
         {
-            int levelIndex = PlayerPrefs.GetInt("SavedLevel");
-            
-            if (ui1 != null)
-            {
-                ui1.alpha = 0f;
-                ui1.interactable = false;
-                ui1.blocksRaycasts = false;
-            }
-
-            if (ui2 != null)
-            {
-                ui2.alpha = 0f;
-                ui2.interactable = false;
-                ui2.blocksRaycasts = false;
-            }
-            
-            loadingScreen.alpha = 1f;
-            loadingScreen.interactable = false;
-            loadingScreen.blocksRaycasts = true;
-
-            StartCoroutine(LoadLevelAsync(levelIndex));
-            
-            // SceneManager.LoadScene(levelIndex);
+            string savedScene = PlayerPrefs.GetString("SavedLevelAddress");
+            ShowLoadingScreen();
+            StartCoroutine(LoadAddressableSceneAsync(savedScene));
         }
         else
         {
@@ -96,15 +62,36 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator LoadLevelAsync(int levelToLoad)
+    IEnumerator LoadAddressableSceneAsync(string sceneAddress)
     {
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
+        AsyncOperationHandle<SceneInstance> handle = Addressables.LoadSceneAsync(sceneAddress, LoadSceneMode.Single);
 
-        while (!loadOperation.isDone)
+        while (!handle.IsDone)
         {
-            float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
+            float progressValue = Mathf.Clamp01(handle.PercentComplete);
             loadingSlider.value = progressValue;
             yield return null;
         }
+    }
+    
+    private void ShowLoadingScreen()
+    {
+        if (ui1 != null)
+        {
+            ui1.alpha = 0f;
+            ui1.interactable = false;
+            ui1.blocksRaycasts = false;
+        }
+
+        if (ui2 != null)
+        {
+            ui2.alpha = 0f;
+            ui2.interactable = false;
+            ui2.blocksRaycasts = false;
+        }
+
+        loadingScreen.alpha = 1f;
+        loadingScreen.interactable = false;
+        loadingScreen.blocksRaycasts = true;
     }
 }

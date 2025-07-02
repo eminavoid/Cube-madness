@@ -137,8 +137,8 @@ public class DotController : MonoBehaviour, IUpdatable
             }
             else
             {
-                PlayerPrefs.DeleteKey("SavedLevel");
-                SceneManager.LoadScene("Main Menu");
+                PlayerPrefs.DeleteKey("SavedLevelAddress");
+                ui.BackToMenu();
             }
         }
     }

@@ -1165,6 +1165,11 @@ MonoBehaviour:
   ui1: {fileID: 1201787639}
   ui2: {fileID: 306733086}
   loadingSlider: {fileID: 1117479760}
+  sceneAddresses:
+  - Main Menu
+  - Level1
+  - Level2
+  - Level3
 --- !u!4 &778002439
 Transform:
   m_ObjectHideFlags: 0
@@ -1716,7 +1721,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2356,7 +2361,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2

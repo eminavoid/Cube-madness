@@ -1813,6 +1813,11 @@ MonoBehaviour:
   ui1: {fileID: 2092986895}
   ui2: {fileID: 386284595}
   loadingSlider: {fileID: 1455502197}
+  sceneAddresses:
+  - Main Menu
+  - Level1
+  - Level2
+  - Level3
 --- !u!4 &1756292511
 Transform:
   m_ObjectHideFlags: 0
