@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DotController : MonoBehaviour, IUpdatable
 {
@@ -21,6 +22,9 @@ public class DotController : MonoBehaviour, IUpdatable
     private MiniPlayerPool miniPlayerPool;
     public List<MiniPlayer> activeMiniPlayers = new List<MiniPlayer>();
 
+    public CanvasGroup canvas;
+    public float delay = 3f;
+
     void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +39,13 @@ public class DotController : MonoBehaviour, IUpdatable
         if (updateManager != null)
         {
             updateManager.Register(this);
+
+            var hider = new TimedUIHider(canvas, delay, (self) =>
+            {
+                updateManager.Unregister(self);
+            });
+            
+            updateManager.Register(hider);
 
             PlayerInput playerInput = GetComponentInParent<PlayerInput>();
             if (playerInput != null)
@@ -113,7 +124,19 @@ public class DotController : MonoBehaviour, IUpdatable
     {
         if (other.gameObject.CompareTag("Win"))
         {
-            SceneManager.LoadScene("Main Menu");
+            int currentIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextIndex = currentIndex + 1;
+
+            // Verificamos que exista una siguiente escena
+            if (nextIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(nextIndex);
+            }
+            else
+            {
+                PlayerPrefs.DeleteKey("SavedLevel");
+                SceneManager.LoadScene("Main Menu");
+            }
         }
     }
 
@@ -216,7 +239,7 @@ public class DotController : MonoBehaviour, IUpdatable
 
         if (activeMiniPlayers.Count <= 0)
         {
-            SceneManager.LoadScene("Main Menu");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
     public void ApplyMathOperation(MathOperation operation, int value)

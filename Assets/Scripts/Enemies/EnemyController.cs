@@ -5,7 +5,7 @@ public class EnemyController : MonoBehaviour, IUpdatable
 {
     private Transform player;
     private float visionRange = 10f;
-    private float speed = 5f;
+    private float speed = 6f;
     private bool isChasing = false;
     private CustomUpdateManager updateManager;
     DotController dot;
