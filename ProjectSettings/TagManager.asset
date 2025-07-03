@@ -5,19 +5,20 @@ TagManager:
   serializedVersion: 3
   tags:
   - MiniPlayer
+  - Win
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Win
   - Water
   - UI
   - Enemies
-  - 
-  - 
-  - 
-  - 
-  - 
+  - MathWalls
+  - MiniPlayers
+  - Spawners
+  - InvisibleWalls
+  - Dot
   - 
   - 
   - 

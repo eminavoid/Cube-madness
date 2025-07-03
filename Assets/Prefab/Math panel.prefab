@@ -11,12 +11,12 @@ GameObject:
   - component: {fileID: 3207479290474608864}
   - component: {fileID: 8967149187178045763}
   - component: {fileID: 5409016134865412158}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ValueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &3207479290474608864
 RectTransform:
@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.25, y: 0}
+  m_AnchoredPosition: {x: 1.3, y: 0}
   m_SizeDelta: {x: 5.94, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8967149187178045763
@@ -187,12 +187,12 @@ GameObject:
   - component: {fileID: 5262990242228094417}
   - component: {fileID: 2170581846021320505}
   - component: {fileID: 6206255544582520657}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: OperatorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!224 &5262990242228094417
 RectTransform:
@@ -365,12 +365,12 @@ GameObject:
   - component: {fileID: 7376627641802480296}
   - component: {fileID: 4259373649118404428}
   - component: {fileID: 3700531733237060667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Math panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &48655037662097253
 Transform:
