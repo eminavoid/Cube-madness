@@ -242,7 +242,7 @@ public class DotController : MonoBehaviour, IUpdatable
 
         if (activeMiniPlayers.Count <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            ui.BackToMenu();
         }
     }
     public void ApplyMathOperation(MathOperation operation, int value)
