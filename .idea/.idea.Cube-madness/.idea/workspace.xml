@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9cf549a6-0ea3-48bc-a4d6-2c73bf630e2f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Cube-madness/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Cube-madness/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level3.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Examples &amp; Extras/Resources/Fonts &amp; Materials/Anton SDF.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +115,7 @@
       <workItem from="1751482411716" duration="4488000" />
       <workItem from="1752435289685" duration="5340000" />
       <workItem from="1752443744917" duration="2542000" />
+      <workItem from="1752680652116" duration="680000" />
     </task>
     <servers />
   </component>
