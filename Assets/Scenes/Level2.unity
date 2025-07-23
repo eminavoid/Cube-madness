@@ -1417,7 +1417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5590594956474145569, guid: e6bc7273e581b0547a5813bcd0f28148, type: 3}
-  initialSize: 10
+  initialSize: 60
 --- !u!1 &1018620738
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,8 @@ public class DotController : MonoBehaviour, IUpdatable
     public float forwardSpeed = 3f; 
     public string moveActionName = "Move";
     public GameObject miniPlayerPrefab;
-    public int numberOfMiniPlayers = 5;
+    public int numberOfActiveMiniPlayers = 5;
+    public int initialMiniPlayerPoolSize = 100;
     public Vector3 spreadOffset = new Vector3(-1f, 0f, 0f);
     public float followingDistance = 1f; 
     public float followSpeedMultiplier = 1f;
@@ -83,9 +84,9 @@ public class DotController : MonoBehaviour, IUpdatable
             return;
         }
 
-        miniPlayerPool = new MiniPlayerPool(miniPlayerPrefab, numberOfMiniPlayers, updateManager);
+        miniPlayerPool = new MiniPlayerPool(miniPlayerPrefab, initialMiniPlayerPoolSize, updateManager);
 
-        for (int i = 0; i < numberOfMiniPlayers; i++)
+        for (int i = 0; i < numberOfActiveMiniPlayers; i++)
         {
             MiniPlayer miniPlayer = miniPlayerPool.GetObject();
             if (miniPlayer != null)
@@ -151,14 +152,14 @@ public class DotController : MonoBehaviour, IUpdatable
             Debug.Log($"Removing miniplayer. Remaining count: {activeMiniPlayers.Count}");
 
             miniPlayerToRemove.ReturnToPool();
-            numberOfMiniPlayers--;
+            numberOfActiveMiniPlayers--;
             UpdateMiniPlayerTargets();
         }
     }
     public void AdjustMiniPlayerCount()
     {
-        int difference = numberOfMiniPlayers - activeMiniPlayers.Count;
-        Debug.Log($"AdjustMiniPlayerCount called. Target count: {numberOfMiniPlayers}, Active count: {activeMiniPlayers.Count}, Difference: {difference}");
+        int difference = numberOfActiveMiniPlayers - activeMiniPlayers.Count;
+        Debug.Log($"AdjustMiniPlayerCount called. Target count: {numberOfActiveMiniPlayers}, Active count: {activeMiniPlayers.Count}, Difference: {difference}");
 
         Debug.Log(difference);
 
@@ -249,16 +250,16 @@ public class DotController : MonoBehaviour, IUpdatable
     {
         switch (operation)
         {
-            case MathOperation.Add: numberOfMiniPlayers += value; break;
-            case MathOperation.Subtract: numberOfMiniPlayers -= value; break;
-            case MathOperation.Multiply: numberOfMiniPlayers *= value; break;
+            case MathOperation.Add: numberOfActiveMiniPlayers += value; break;
+            case MathOperation.Subtract: numberOfActiveMiniPlayers -= value; break;
+            case MathOperation.Multiply: numberOfActiveMiniPlayers *= value; break;
             case MathOperation.Divide:
-                if (value != 0) numberOfMiniPlayers /= value;
+                if (value != 0) numberOfActiveMiniPlayers /= value;
                 else Debug.LogWarning("Division by zero in MathWall");
                 break;
         }
 
-        numberOfMiniPlayers = Mathf.Max(0, numberOfMiniPlayers);
+        numberOfActiveMiniPlayers = Mathf.Max(0, numberOfActiveMiniPlayers);
         AdjustMiniPlayerCount();
     }
 }
